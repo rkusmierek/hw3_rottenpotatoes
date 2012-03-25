@@ -31,3 +31,25 @@ When /I (un)?check the following ratings: (.*)/ do |uncheck, rating_list|
     end
   end
 end
+
+Then /^I should see movies with following ratings: (.*)/ do |rating_list|
+  ratings = page.all("table#movies tbody tr td[2]").collect! {|t| t.text}
+  rating_list.split(",").each do |field|
+    assert ratings.include?(field.strip)
+  end
+end
+ 
+Then /^I should not see movies with the following ratings: (.*)/ do |rating_list|
+  ratings = page.all("table#movies tbody tr td[2]").collect! {|t| t.text}
+  rating_list.split(",").each do |field|
+    assert !ratings.include?(field.strip)
+  end
+end
+ 
+Then /^I should see all of the movies$/ do
+  assert ( rows = page.all("table#movies tbody tr td[1]").size == Movie.all.count )
+end
+ 
+Then /^I should see no movies$/ do
+  assert ( rows = page.all("table#movies tbody tr td[1]").size == 0 ) 
+end
