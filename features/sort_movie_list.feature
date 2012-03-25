@@ -24,7 +24,7 @@ Background: movies have been added to database
 Scenario: sort movies alphabetically
   When I follow "title_header"
   And I check the following ratings: G,PG,PG-13,R,NC-17
-  And I press "ratings_submit"
+  And I press "Refresh"
   Then I should see "Alladin" before "Amelie"
   And I should see "Chicken Run" before "The Help"
 
